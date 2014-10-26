@@ -88,10 +88,7 @@ for(var i = 0; i<d.length;i++){
         age:+d[i].Agemos, // convert "Year" column to Date
         yp3: +d[i].P3,
         yp10:+d[i].P10,
-        yp25:+d[i].P25,
-        yp50:+d[i].P50,
-        yp75:+d[i].P75,
-        yp90:+d[i].P90,
+ 
         yp95:+d[i].P95,
         yp97:+d[i].P97  
   };
@@ -111,7 +108,7 @@ for(var i = 0; i<d.length;i++){
 			  .attr("d",line(dataset))
               .attr("class", "line") 
 			  .attr("stroke",red)
-			  .attr("stroke-width",2)
+			  .attr("stroke-width",20)
 			  .attr("fill",none);
 
 });
