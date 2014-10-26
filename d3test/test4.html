@@ -104,7 +104,7 @@ for(var i = 0; i<d.length;i++){
             var line = d3.svg.line()
 			 .x(function(d){return x(d.age/12);})
 			 .y(function(d){return y(d.yp3);})
-			 .interpolate("");
+			 .interpolate("basis");
 
 	   
 	     var gra = svg.append("path")
