@@ -24,7 +24,7 @@
 
     stroke: red;
 
-    shape-rendering: optimizeSpeed;
+    shape-rendering: crispEdges;
 
 }
 
@@ -53,15 +53,15 @@
          var w = 500; 
 var svg = d3.select("body")
                         .append("svg")
-                        .attr("width",500)
-                        .attr("height",500);
+                        .attr("width",w)
+                        .attr("height",h);
 var xScale = d3.scale.linear()
                         .domain([2,20])
-                        .range([30,h-padding]);
+                        .range([padding,h-padding]);
         
          var yScale = d3.scale.linear()
                         .domain([12,36])
-                        .range([w-padding,30]);
+                        .range([w-padding,padding]);
  var xAxis = d3.svg.axis()
                         .scale(xScale)
                         .orient("bottom");
@@ -85,34 +85,62 @@ var xScale = d3.scale.linear()
 var dataset = new Array();
 for(var i = 0; i<d.length;i++){
   dataset[i] = {
-        age:+d[i].Agemos, // convert "Year" column to Date
+        age:d[i].Agemos,
         yp3: +d[i].P3,
         yp10:+d[i].P10,
- 
+        yp25:+d[i].P25,
+        yp50:+d[i].P50,
+        yp75:+d[i].P75,
+        yp90:+d[i].P90,
         yp95:+d[i].P95,
         yp97:+d[i].P97  
   };
 }	
- 	     var padding = 30;
-	 var h = 500;
-	 var w = 500;	
-       var x = d3.scale.linear().domain([ 2, 20 ]).range([padding, w-padding]);
-       var y = d3.scale.linear().domain([12,36]).range([h-padding,padding]);
             var line = d3.svg.line()
-			 .x(function(d){return x(d.age/12);})
-			 .y(function(d){return y(d.yp3);})
+			 .x(function(d){return xScale(d.age/12);})
+			 .y(function(d){return yScale(d.yp3);})
 			 .interpolate("basis");
 
-	   
+	      var gra = svg.append("path")
+                          .attr("d",line(dataset))
+                          .attr("stroke","red")
+                          .attr("class","line")
+                          .attr("stroke-width","1")
+                          .attr("fill","none");
+
+	      var  line = d3.svg.line()
+                         .x(function(d){return xScale(d.age/12);})
+                         .y(function(d){return yScale(d.yp94);})
+                         .interpolate("basis");
+
 	     var gra = svg.append("path")
 			  .attr("d",line(dataset))
-              .attr("class", "line") 
-			  .attr("stroke",red)
-			  .attr("stroke-width",20)
-			  .attr("fill",none);
+			  .attr("stroke","green")
+			  .attr("stroke-width","1")
+			  .attr("fill","none"); 
 
 });
+function drawLine(xScale,yScale,xData,yData,style,set,stroke,stroke_width){
+    var line =d3.svg.line()
+		.x(function(d){return xScale(xData); })
+		.y(function(d){return yScale(yData);})
+		.interpolate(style);
+    var gra = svg.append("path")
+		.attr("d",line(set))
+		.attr("stroke",stroke)
+		.attr("stroke-width",stroke_width)
+		.attr("fill","none");
 
+
+
+
+
+
+
+
+
+
+}
 	</script>
 
 		
