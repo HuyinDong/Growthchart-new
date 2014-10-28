@@ -86,13 +86,13 @@ var dataset = new Array();
 for(var i = 0; i<d.length;i++){
   dataset[i] = {
         age:d[i].Agemos,
-        yp3: +d[i].P3,
-        yp10:+d[i].P10,
-        yp25:+d[i].P25,
-        yp50:+d[i].P50,
-        yp75:+d[i].P75,
-        yp90:+d[i].P90,
-        yp95:+d[i].P95,
+        yp3: d[i].P3,
+        yp10:d[i].P10,
+        yp25:d[i].P25,
+        yp50:d[i].P50,
+        yp75:d[i].P75,
+        yp90:d[i].P90,
+        yp95:d[i].P95,
         yp97:+d[i].P97  
   };
 }	
@@ -101,46 +101,73 @@ for(var i = 0; i<d.length;i++){
 			 .y(function(d){return yScale(d.yp3);})
 			 .interpolate("basis");
 
-	      var gra = svg.append("path")
-                          .attr("d",line(dataset))
-                          .attr("stroke","red")
-                          .attr("class","line")
-                          .attr("stroke-width","1")
-                          .attr("fill","none");
-
-	      var  line = d3.svg.line()
-                         .x(function(d){return xScale(d.age/12);})
-                         .y(function(d){return yScale(d.yp94);})
-                         .interpolate("basis");
-
+	   
 	     var gra = svg.append("path")
 			  .attr("d",line(dataset))
 			  .attr("stroke","green")
-			  .attr("stroke-width","1")
-			  .attr("fill","none"); 
+			  .attr("stroke-width","2")
+			  .attr("fill","none");
 
-});
-function drawLine(xScale,yScale,xData,yData,style,set,stroke,stroke_width){
-    var line =d3.svg.line()
-		.x(function(d){return xScale(xData); })
-		.y(function(d){return yScale(yData);})
-		.interpolate(style);
-    var gra = svg.append("path")
-		.attr("d",line(set))
-		.attr("stroke",stroke)
-		.attr("stroke-width",stroke_width)
-		.attr("fill","none");
+            var line = d3.svg.line()
+                         .x(function(d){return xScale(d.age/12);})
+                         .y(function(d){return yScale(d.yp10);})
+                         .interpolate("basis");
 
+           
+             var gra = svg.append("path")
+                          .attr("d",line(dataset))
+                          .attr("stroke","red")
+                          .attr("stroke-width","2")
+                          .attr("fill","none");
+            var line = d3.svg.line()
+                         .x(function(d){return xScale(d.age/12);})
+                         .y(function(d){return yScale(d.yp25);})
+                         .interpolate("basis");
 
+           
+             var gra = svg.append("path")
+                          .attr("d",line(dataset))
+                          .attr("stroke","orange")
+                          .attr("stroke-width","2")
+                          .attr("fill","none");
 
+var line = d3.svg.line()
+                         .x(function(d){return xScale(d.age/12);})
+                         .y(function(d){return yScale(d.yp50);})
+                         .interpolate("basis");
 
+           
+             var gra = svg.append("path")
+                          .attr("d",line(dataset))
+                          .attr("stroke","blue")
+                          .attr("stroke-width","2")
+                          .attr("fill","none");
 
+var line = d3.svg.line()
+                         .x(function(d){return xScale(d.age/12);})
+                         .y(function(d){return yScale(d.yp75);})
+                         .interpolate("basis");
 
+           
+             var gra = svg.append("path")
+                          .attr("d",line(dataset))
+                          .attr("stroke","orange")
+                          .attr("stroke-width","2")
+                          .attr("fill","none");
 
+            var line = d3.svg.line()
+                         .x(function(d){return xScale(d.age/12);})
+                         .y(function(d){return yScale(d.yp95);})
+                         .interpolate("basis");
 
+           
+             var gra = svg.append("path")
+                          .attr("d",line(dataset))
+                          .attr("stroke","yellow")
+                          .attr("stroke-width","2")
+                          .attr("fill","none");
+		  });
 
-
-}
 	</script>
 
 		
