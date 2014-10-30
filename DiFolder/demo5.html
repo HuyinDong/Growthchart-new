@@ -1,0 +1,118 @@
+<head>
+  <meta charset="utf-8">
+ <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+</head> 
+
+<body>
+
+<div id="paired-line-chart">
+<script type="text/javascript">
+   var  w = 500,
+        h = 500,
+        p = 30,
+        x = d3.scale.linear().domain([ 0, 50 ]).range([0, w]),
+        y = d3.scale.linear().domain([0, 50]).range([h, 0]);
+        //y = d3.scale.linear().domain([0, maxval]).range([h, 0]);
+
+   var vis = d3.select("#paired-line-chart")
+      // .data([val_array1])
+     .append("svg:svg")
+       .attr("width", w )
+       .attr("height", h );
+    // .append("svg:g")
+    //   .attr("transform", "translate(" + p + "," + p + ")");
+
+var svg = document.querySelector('svg');
+
+//var pt = svg.creteSVGPoint();
+/*
+svg.addEventListener("mousemove",function(evt){
+	var mydate =1;
+},false);
+ */  
+  var arrData = [
+    [2, 20],
+    [3, 17], 
+    [4, 21]];
+	
+  var data = arrData.map(function(d) {
+      return {
+         age: d[0],
+         bmi: d[1]
+      };
+      
+  });
+
+
+var cirgroup =d3.select("svg")
+	.attr("id","mysvg")
+	.selectAll("g")
+	.data(data)
+	.enter()
+	.append("svg:g");
+var line = d3.svg.line()
+	  .x(function(d){
+		return x(d.age);})
+	  .y(function(d){
+		return y(d.bmi);})
+	  .interpolate("linear");
+
+var mypath = 	d3.select("svg")
+	.append("svg:path")
+	.attr("fill","none")
+	.attr("d",line(data))
+	.attr("stroke-width",2)
+	.attr("stroke","green");
+ 
+var ppath = document.querySelector('path');
+
+var pt = svg.createSVGPoint();
+
+ppath.addEventListener("mouseover",function(evt){
+	pt.x = evt.clientX;
+	pt.y = evt.clientY;
+	var ppoint = pt.matrixTransform(svg.getScreenCTM().inverse());
+	alert(x.invert(ppoint.x)+","+y.invert(ppoint.y));
+//	alert(pt.x+","+pt.y);
+//	alert("hello");
+//	var myy = 1;
+},false);
+
+var mycircle = cirgroup.append("circle")	
+     .attr("cx",function(d){return x(d.age);})
+     .attr("cy",function(d){return y(d.bmi);})
+     .attr("r","2")
+     .attr("fill","none")
+     .attr("stroke","green");
+/*
+mycircle.on("mouseover",function(d,i){
+	this.nextSibling.style.display = "block";
+});
+
+mycircle.on("mouseout",function(d,i){
+	this.nextSibling.style.display = "none";
+});
+*/
+var cirtext = cirgroup.append("svg:text")
+     .attr("x",function(d){return x(d.age)+3;})
+     .attr("y",function(d){return y(d.bmi)+1;})
+     .text(function(d){return d.age+","+d.bmi;})
+     .attr("font-family","sans-serif")
+     .attr("font-size","11px")
+     .style("display","none")
+     .attr("fill","red");
+	
+/*
+var mycircle =  vis.selectAll("circle")
+     .data(data)
+     .enter()
+     .append("svg:circle")
+     .attr("cx",function(d){return x(d.age);})
+     .attr("cy",function(d){return y(d.bmi);})
+     .attr("r","2")
+     .attr("fill","none")
+     .attr("stroke","green");
+*/
+</script>
+</div>
+</body>
