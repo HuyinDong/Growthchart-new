@@ -237,7 +237,8 @@ lineP5.on("mouseover",function(evt){
 var svg = d3.select("svg");
 
 var trackGroup = svg
-	.append("g");
+	.append("g")
+	.style("display","none");
 //	.style("width",50)
 //	.style("height",20);
  	
@@ -254,29 +255,10 @@ var trackText = trackGroup.append("text")
 	.attr("text-anchor","middle")
 	.attr("transform","translate(20,12)");
 
+//trackGroup.style("display","none");
+
 var pt = svg.node().createSVGPoint();
 
-lineP5.addEventListener("mouseover",function(evt){
-	pt.x = evt.clientX;
-	pt.y = evt.clientY;
-	var ppoint = pt.matrixTransform(svg.node()
-		.getScreenCTM().inverse()); //this point show svg point
-	trackGroup
-	     .attr("transform","translate("+(ppoint.x-60)+","+
-		(ppoint.y+10)+")");
-	var showpoint =svg.node().createSVGPoint();
-	showpoint = ppoint;
-	showpoint.x = showpoint.x-30;//since rules translate by( 30,30)
-	showpoint.y = showpoint.y-30;
-
-	trackText
-//.attr("x",ppoint.x)
-//	     .attr("y",ppoint.y)
-	   .attr("font-size",7)
-	   .text(x.invert(showpoint.x).toFixed(1)+","+
-		y.invert(showpoint.y).toFixed(1));
-	    
-},false);
 
     vis.append("svg:text")
  		.attr("transform", "translate(" + (w) + ", 350)") 
@@ -485,6 +467,45 @@ lineP5.addEventListener("mouseover",function(evt){
     .attr("x", 500)
     .attr("y", 500)
 	.text("Age");
+  var pathArray = svg.selectAll("path");
+  pathArray.each(function(){
+
+    this.addEventListener("mouseover",function(evt){
+	pt.x = evt.clientX;
+	pt.y = evt.clientY;
+	var ppoint = pt.matrixTransform(svg.node()
+		.getScreenCTM().inverse()); //this point show svg point
+	if((ppoint.x-57)<30) // this point reached the left edge
+	{
+	  
+	   trackGroup.style("display","block")
+	     .attr("transform","translate("+(ppoint.x+7)+","+
+		(ppoint.y+7)+")");
+	}
+	else{
+	  trackGroup.style("display","block")
+	     .attr("transform","translate("+(ppoint.x-57)+","+
+		(ppoint.y+7)+")");
+	}
+	var showpoint =svg.node().createSVGPoint();
+	showpoint = ppoint;
+	showpoint.x = showpoint.x-30;//since rules translate by( 30,30)
+	showpoint.y = showpoint.y-30;
+
+	trackText
+//.attr("x",ppoint.x)
+//	     .attr("y",ppoint.y)
+	   .attr("font-size",7)
+	   .text(x.invert(showpoint.x).toFixed(1)+","+
+		y.invert(showpoint.y).toFixed(1));
+	    
+      },false);
+
+     this.addEventListener("mouseout",function(evt){
+         trackGroup.style("display","none");
+
+     });
+  });
 
 }); 
 
