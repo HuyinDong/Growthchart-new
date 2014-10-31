@@ -216,7 +216,7 @@ var cirtext = cirgroup.append("svg:text")
 */
 
    // line 5%
-    vis.append("svg:path")
+ var _lineP5 =  vis.append("svg:path")
        .attr("class", "line")
        .attr("fill", "none")
        .attr("stroke", "red")
@@ -224,6 +224,59 @@ var cirtext = cirgroup.append("svg:text")
        .attr("d", d3.svg.line()
          .x(function(d) { return x(d.x / 12); })
          .y(function(d) { return y(d.yp5); }));
+
+var lineP5 = _lineP5.node();
+
+/*
+lineP5.on("mouseover",function(evt){
+	//alert(evt.clientX+","+evt.clientY);
+
+	alert("hello");
+});
+*/
+var svg = d3.select("svg");
+
+var trackGroup = svg
+	.append("g");
+//	.style("width",50)
+//	.style("height",20);
+ 	
+var trackRec = trackGroup.append("svg:rect")
+	.attr("width",50)
+	.attr("height",20)
+//	.attr("x",100)
+//	.attr("y",100)
+	.style("stroke-width",1)
+	.style("fill","white")
+	.style("stroke","black"); 
+
+var trackText = trackGroup.append("text")
+	.attr("text-anchor","middle")
+	.attr("transform","translate(20,12)");
+
+var pt = svg.node().createSVGPoint();
+
+lineP5.addEventListener("mouseover",function(evt){
+	pt.x = evt.clientX;
+	pt.y = evt.clientY;
+	var ppoint = pt.matrixTransform(svg.node()
+		.getScreenCTM().inverse()); //this point show svg point
+	trackGroup
+	     .attr("transform","translate("+(ppoint.x-60)+","+
+		(ppoint.y+10)+")");
+	var showpoint =svg.node().createSVGPoint();
+	showpoint = ppoint;
+	showpoint.x = showpoint.x-30;//since rules translate by( 30,30)
+	showpoint.y = showpoint.y-30;
+
+	trackText
+//.attr("x",ppoint.x)
+//	     .attr("y",ppoint.y)
+	   .attr("font-size",7)
+	   .text(x.invert(showpoint.x).toFixed(1)+","+
+		y.invert(showpoint.y).toFixed(1));
+	    
+},false);
 
     vis.append("svg:text")
  		.attr("transform", "translate(" + (w) + ", 350)") 
