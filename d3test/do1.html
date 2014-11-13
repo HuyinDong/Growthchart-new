@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+		<script type="text/javascript" src="d3/d3.v3.js"></script>
+		<style type="text/css">
+		
+			</style>
+<body>
+<form id = "bmi" method = "GET">
+		<table>
+			<tr>
+				<td>Sex:</td><td><input type="select" size = "15" name = "sex"/></td>
+			</tr>
+			<tr>
+				<td>Age:</td><td><input type="text" size = "15" name = "age"/></td>
+		</tr>
+		<tr>
+			<td>Weight</td><td><input type="text" size = "15" name = "weight"/></td>
+		</tr>
+		<tr>
+			<td>Stature</td><td><input type="text" size = "15" name = "stature"/></td>
+		</tr>
+		<tr>
+			<td>Hair Circle</td><td><input type="text" size = "15" name = "hair"/></td>
+		</tr>
+		<tr>
+			<td>Stature</td><td><input type="text" size = "15" name = "stature"/></td>
+		</tr>
+		<tr>
+			<td><input type = "submit" value = "Submit" name = "sub"/></td>
+		</tr>
+			</table>
+			</form>
+		<table>
+		<tr>
+				<td>BMI_Per:</td><td><p><span id="bm">1</span></p></td>
+		</tr>
+		<tr>
+				<td>HC_Per:</td><td><p id = "hc"></p></td>
+		</tr>
+		<tr>
+				<td>WFA_Per:</td><td><p id = "wfa"></p></td>
+		</tr>
+		<tr>
+				<td>LFA_Per:</td><td><p id = "lfa"></p></td>
+		</tr>
+		</table>
+		<div>
+		<p id="qq">2</p>
+		</div>
+<p>本例调用的函数会执行一个计算，然后返回结果：</p>
+
+<p id="demo"></p>
+
+<script>
+function myFunction(a,b)
+{
+return a*b;
+}
+
+document.getElementById("qq").innerHTML=myFunction(4,4);
+</script>
+
+</body>
+</html>

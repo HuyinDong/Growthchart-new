@@ -1,128 +1,28 @@
+<!DOCTYPE html>
 <html lang="en">
-
     <head>
-
         <meta charset="utf-8">
-
         <title>D3 Test</title>
-
-        <script type="text/javascript" src="./d3-master/d3.js"></script>
-
+        <script type="text/javascript" src="d3/d3.v3.js"></script>
 		<style type="text/css">
-
-		.svg{
-
-		 margin:0;
-
-		}
-
-		.axis path,
-
-.axis line {
-
-    fill: none;
-
-    stroke: red;
-
-    shape-rendering: crispEdges;
-
-}
-
-
-
-.axis text {
-
-    font-family: sans-serif;
-
-    font-size: 11px;
-     
-    font-color:green;
-}
-
-		</style>
-
-    </head>
-
-    <body>
-
-	  <div id="rect-demo" />
-
-        <script type="text/javascript">
-                
-	 var dataset = [[100,150],[120,140],[130,410]];
-         var padding = 30;
-	 var h = 500;
-	 var w = 500;	
-	 var svg = d3.select("body")
-			.append("svg")
-			.attr("width",500)
-			.attr("height",500);
-
-      var numDataPoints = 50;
-for (var i = 0; i < numDataPoints; i++) {
-var newNumber1 = Math.random() * 1000;
-var newNumber2 = Math.random() * 1000;
-dataset.push([newNumber1, newNumber2]);
-
-    }
-
-  	 var points = svg.selectAll("circle")
-			 .data(dataset)
-			 .enter()
-			 .append("circle")
-			 .attr("cx",function(d){return d[0]+30;})
-			 .attr("cy",function(d){return d[1]+30;})
-			 .attr("r",3)
-			 .on("click",function(){alert("Cooooool");})
-			;	 
-
-
-	 var xScale = d3.scale.linear()
-			.domain([0,d3.max(dataset,function(d){return d[0];})])
-			.range([30,h-padding]);
-        
-	 var yScale = d3.scale.linear()
-			.domain([0,d3.max(dataset,function(d){return d[1];})])
-			.range([w-padding,30]);
- 
- 	 var xAxis = d3.svg.axis()
-		       	.scale(xScale)
-			.orient("bottom");
-
-   	 var yAxis = d3.svg.axis()
-			.scale(yScale)
-			.orient("left");
-         svg.append("g")
-	    .attr("class","axis")
-	    .call(xAxis)
-	     .attr("transform","translate(0,470)");
-
-         svg.append("g")
-	     .attr("class","axis")
-	     .call(yAxis)
-	     .attr("transform","translate(30,0)");
-/*
- var data = [
-    {age: 200, bmi: 200},
-    {age:300,  bmi:170},
-    {age:400,  bmi:210}	
-	    ]; 
-  var cir = svg.selectAll("circle")
-		 .data(data)
-		 .enter()
-		 .append("circle")
-		 .attr("cx",function(d){return d.age;})
-		 .attr("cy",function(d){return d.bmi;})
-		 .attr("r",20);
-*/
-
-	</script>
-
 		
-
+		</style>
+    </head>
+    <body>
+	  <div id="rect-demo" />
+        <script type="text/javascript">
+		var dataset;
+			d3.csv("./BMI_boy_2yr_20yrs_min.csv",function(data){
+			if(error){
+			console.log(error);
+			}else{
+				console.log(data);
+			}
+				
+			});
+			
+        </script>
+		
     </body>
-
 </html>     
-
-
 
