@@ -1,6 +1,7 @@
 <?php
 
    $sex =  $_GET['sex'];
+    $ktype =  $_GET['ktype'];
    $age = $_GET['age'];
    $weight = $_GET['weight'];
    $stature = $_GET['stature'];
