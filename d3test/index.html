@@ -1,188 +1,95 @@
+<!DOCTYPE html>
 <html lang="en">
-
     <head>
-
         <meta charset="utf-8">
-
         <title>D3 Test</title>
-
-        <script type="text/javascript" src="./d3-master/d3.js"></script>
-
+        <script type="text/javascript" src="d3/d3.v3.js"></script>
 		<style type="text/css">
-
 		.svg{
-
 		 margin:0;
-
 		}
-
 		.axis path,
-
 .axis line {
-
     fill: none;
-
     stroke: black;
-
     shape-rendering: crispEdges;
-
 }
-
-
 
 .axis text {
-
     font-family: sans-serif;
-
     font-size: 11px;
-
 }
-
 		</style>
-
     </head>
-
     <body>
-
 	  <div id="rect-demo" />
-
         <script type="text/javascript">
-
 		
-
 						
-
 		var dataset = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19] ;
-
 		var dataset1 = [0,1,2,3,4,5,6,7,8,9,10,11,12,13] ;
-
 		var padding = 20;
-
 		var height = 544;
-
 		var width = 556;
-
 			 var svg = d3.select("body")
-
 						 .append("svg")
-
 						 .attr("width",width+padding*2)
-
 						 .attr("height",height+padding*2);
-
 						 
-
 			var xline = svg.selectAll("line.x")
-
 						  .data(dataset1)
-
 						  .enter()
-
 						  .append("line")
-
 						  .style("stroke","#ccc");
-
 			
-
 			var yline= svg.selectAll("line.y")
-
 			.data(dataset)
-
 			.enter()
-
 			.append("line")
-
 			.style("stroke","#ccc");
-
 			
-
 				yline.attr("x1",function(d,i){return 20+544/19*i;})
-
 					.attr("x2",function(d,i){return 20+544/19*i;})
-
 					.attr("y1",20)
-
 					.attr("y2",564)
-
 					;
-
 				xline.attr("x1",20)
-
 					.attr("x2",576)
-
 					.attr("y1",function(d,i){return 20+556/13*i;})
-
 					.attr("y2",function(d,i){return 20+556/13*i;});
-
 					
-
 		var xScale = d3.scale.linear()
-
 					   .domain([2,20])
-
 					   .range([20,596]);
-
 					   
-
 		var yScale = d3.scale.linear()
-
 					   .domain([12,36])
-
 					   .range([564,20]);
-
 		var xAxis = d3.svg.axis()
-
 					  .scale(xScale)
-
 					  .orient("bottom")
-
 					  .ticks(20);
-
 		var yAxis = d3.svg.axis()
-
 					   .scale(yScale)
-
 					   .orient("right");
-
 			svg.append("g")
-
 			    .attr("class","axis")
-
 				.attr("transform","translate(0,"+0+")")
-
 				.call(yAxis);		   
-
 		
-
 			svg.append("g")
-
 			    .attr("class","axis")
-
 				.attr("transform","translate(0,"+564+")")
-
 				.call(xAxis);
-
 				
-
 				//line
-
 				var line = svg.selectAll("line")
-
 							  .data(dataset3)
-
 								.enter()
-
 								.append("line")
-
 								.style("stroke","red");
-
         </script>
-
 		
-
     </body>
-
 </html>     
-
-
 
