@@ -38,7 +38,7 @@
 		<div class="form-group">
     <label for="age" class="col-sm-2 control-label">Age</label>
     <div class="col-sm-2">
-      <input type="text" class="form-control" name = "age" id="age" placeholder="Age" value="3"/>
+      <input type="text" class="form-control" name = "age" id="age" placeholder="Age" value=""/>
     </div>
   </div>
   	<div class="form-group">
@@ -119,12 +119,10 @@
 			}
 			}
 			var weight = document.getElementById("weight").value;
-			alert(gender);
 					var xhr = new XMLHttpRequest();      
 			xhr.open('GET',"http://webservices.onlinegrowthcharts.com/gc?ktype="+ktype+"&age="+age+"&gender="+gender+"&weight="+weight+"&stature="+stature+"&hc="+hc,false);
 			xhr.send(null);
 			jsonDoc = xhr.responseText;
-			alert(jsonDoc);
 			var sp = JSON.parse(jsonDoc);
 			$("#bmp").text(sp.bmi_per) ;
 			$("#hcp").text(sp.hc_per) ;
