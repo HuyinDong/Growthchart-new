@@ -28,17 +28,17 @@
     <label for="ktype" class="col-sm-2 control-label">Ktype</label>
     <div class="col-sm-2">
      <label class="radio-inline">
-  <input type="radio" name="ktype" id="ktype" value="1" onchange="toggleDisable(this)" /> Infant
+  <input type="radio" name="ktype" id="ktype" value="1"  /> Infant
 </label>
 <label class="radio-inline">
-  <input type="radio" name="ktype" id="ktype" value="2" onchange="toggleDisable(this)"> Child
+  <input type="radio" name="ktype" id="ktype" value="2" /> Child
 </label>
     </div>
   </div>
 		<div class="form-group">
     <label for="age" class="col-sm-2 control-label">Age</label>
     <div class="col-sm-2">
-      <input type="text" class="form-control" name = "age" id="age" placeholder="Age" value=""/>
+      <input type="text" class="form-control" name = "age" id="age" placeholder="Age" value="3"/>
     </div>
   </div>
   	<div class="form-group">
@@ -65,7 +65,7 @@
   <div class="form-group">
   <label for="sub" class="col-sm-2 control-label">Submit</label>
     <div class="col-sm-2">
-      <input type = 'submit' value = 'Submit' name = 'sub' id = "sub" class="btn btn-primary" onclick="test(); return false;"/>
+      <input type = 'submit' value = 'Submit' name = 'sub' id = "sub" class="btn btn-primary" />
     </div>
   </div>
 			</form>
@@ -98,27 +98,45 @@
 	<script src="jquery-1.10.2.js"></script>
 		<script>
 		
-		function toggleDisable(checkbox){
-		var toggle = document.getElementById("field");
-			checkbox.value==1 ? toggle.disabled = false : toggle.disabled = true;
-		}
-		window.onload = function() {
-		toggleDisable(document.getElementById('ktype'));
-}
-
-
-		    function test(){
-			var xhr = new XMLHttpRequest();      
-			xhr.open('GET'," http://date.jsontest.com",false);
+		$(document).ready(function(){
+		
+		    $('#sub').click(function(){
+			var stature = document.getElementById("stature").value;
+			var hc = document.getElementById("hc").value;
+			var age = document.getElementById("age").value;
+			var gender ;
+			var g = document.getElementsByName("gender");
+			for(var i = 0; i<g.length; i++){
+			if(g[i].checked){
+				gender = g[i].value;
+			}
+			}
+			var ktype;
+			var k = document.getElementsByName("ktype");
+			for(var i = 0; i<k.length; i++){
+			if(k[i].checked){
+				ktype = k[i].value;
+			}
+			}
+			var weight = document.getElementById("weight").value;
+			alert(gender);
+					var xhr = new XMLHttpRequest();      
+			xhr.open('GET',"http://webservices.onlinegrowthcharts.com/gc?ktype="+ktype+"&age="+age+"&gender="+gender+"&weight="+weight+"&stature="+stature+"&hc="+hc,false);
 			xhr.send(null);
 			jsonDoc = xhr.responseText;
+			alert(jsonDoc);
 			var sp = JSON.parse(jsonDoc);
+			$("#bmp").text(sp.bmi_per) ;
+			$("#hcp").text(sp.hc_per) ;
+			$("#wfap").text(sp.wfa_per) ;
+			$("#lfap").text(sp.lfa_per) ;
+			return false;
 			
-			document.getElementById("bmp").innerHTML= sp.time;
-			document.getElementById("hcp").innerHTML=sp.milliseconds_since_epoch;
-			document.getElementById("wfap").innerHTML=sp.date;
-}
-			
+					
+	});
+}); 
+
+		
 			</script>
 	 </body>
 </html>     
