@@ -1,0 +1,36 @@
+.rule line {
+    stroke: #eed;
+}
+table {
+    border-collapse: collapse;
+    border: 1px solid #FFFAFA;
+}
+td {
+    padding: 10px;
+}
+#sign{
+    display:none;
+    padding:15px;
+    margin:5px;
+    width:280px;
+    height:300px;
+    position:absolute;
+    top:40px;
+    right:-80px;
+    background:#FFFFCC;
+    border:1px solid #3399FF;
+    line-height: 15px;
+}
+#profile{
+    display:none;
+    background:#004C4C;
+}
+
+.words{
+    margin-top:10px;
+}
+
+#content{
+    margin-top:20px;
+    width : 800px;
+}
