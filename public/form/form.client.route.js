@@ -12,7 +12,7 @@ form.config(['$stateProvider','$urlRouterProvider', function ($stateProvider,$ur
         .state('home.detail',{
             url : '/detail',
             templateUrl : './charts/charts.client.view.html',
-            controller : './charts/charts.client.controller'
+            controller : 'chartsController'
         })
 
 }]);

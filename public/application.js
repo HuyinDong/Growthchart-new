@@ -6,7 +6,9 @@ var mainApplicationModule = angular.module('mainApplicationModule',
     [
         'lumx',
         'ngMaterial',
-        'form'
+        'dialog',
+        'form',
+        'charts'
     ]);
 
 angular.element(document).ready(function(){
