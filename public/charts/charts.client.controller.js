@@ -4,8 +4,9 @@
 charts.controller('chartsController',function($scope,$http,$stateParams,$rootScope,$state,$mdDialog){
      var child =  $rootScope.child;
      var childData = {};
-    console.log(child);
+
     parseChild(child);
+
     function parseChild(child){
         if(child.unit == 'us'){
             childData.ktype= 1;
@@ -20,47 +21,132 @@ charts.controller('chartsController',function($scope,$http,$stateParams,$rootSco
         }
         var age = child.birth.split(" ");
         if(age[1] == 'months' ){
-            age = age[0];
+            age = parseInt(age[0]);
         }else if(age[1]  == 'years'){
-            age = age[0]*12;
+            age = parseInt(age[0])*12;
         }else{
             age = 1;
         }
         childData.age = age;
         child.gender == 'Boy' ? childData.gender = 1 : childData.gender = 0;
+        console.log(childData);
 
     }
-    var obj = {
+    var units = {};
+    if(childData.ktype){
+        units.length = 'inches';
+        units.weight = 'lbs';
+    }else{
+        units.length = 'cm';
+        units.weight = 'kg';
+    }
+
+    var chart_1 = {
         link : {
             boy : 'data/lenageinf.csv',
-            girl : 'data/lenageinf_firl.csv'
+            girl : 'data/lenageinf_girl.csv'
         },
         spot: [
-         childData.age,childData.length              // weight ,age, length
+         childData.age,childData.stature              // weight ,age, length
         ],
         container : 'container1',
         subtitle : 'Length-for-age charts, birth to 36 months',
         ytitle : 'Length',
         ycallback : function(){
-                            return this.value + 'cm';
+                        return this.value +units.length;
                                 },
+        xtitle : 'Age',
+        xcallback : function(){
+                return this.value + 'months';
+        },
+        type : 'length',
+        xtickInterval : 2,
+        ytickInterval : 2
+    }
+
+    var chart_2 = {
+        link : {
+            boy : 'data/wtageinf.csv',
+            girl : 'data/wtageinf_girl.csv'
+        },
+        spot: [
+            childData.age,childData.weight              // weight ,age, length
+        ],
+        container : 'container2',
+        subtitle : 'Weight-for-age charts, birth to 36 months',
+        ytitle : 'Weight',
+        ycallback : function(){
+            return this.value +units.weight;
+        },
         xtitle : 'Age : Months',
         xcallback : function(){
-            return this.value = 'cm';
-        }
-    }
-    drawCharts(obj);
+            return this.value = 'months';
+        },
+        type : 'weight',
+        xtickInterval : 2,
+        ytickInterval : 4
+    };
+
+    var chart_3 = {
+        link : {
+            boy : 'data/hcageinf.csv',
+            girl : 'data/hcageinf_girl.csv'
+        },
+        spot: [
+            childData.age,childData.hc              // weight ,age, length
+        ],
+        container : 'container3',
+        subtitle : 'Head circumference-for-age charts, birth to 36 months',
+        ytitle : 'Head circumference',
+        ycallback : function(){
+            return this.value +units.length;
+        },
+        xtitle : 'Age : Months',
+        xcallback : function(){
+            return this.value = 'months';
+        },
+        type : 'length',
+        xtickInterval : 2,
+        ytickInterval : 2
+    };
+
+    var chart_4 = {
+        link : {
+            boy : 'data/wtleninf.csv',
+            girl : 'data/wtleninf_girl.csv'
+        },
+        spot: [
+            childData.stature,childData.weight              // weight ,age, length
+        ],
+        container : 'container4',
+        subtitle : 'Weight-for-Length charts, birth to 36 months',
+        ytitle : 'Weight',
+        ycallback : function(){
+            return this.value +units.weight;
+        },
+        xtitle : 'Length',
+        xcallback : function(){
+            return this.value +units.length;
+        },
+        type : 'weight',
+        xtickInterval : 2,
+        ytickInterval : 4
+    };
+
+    drawCharts(chart_1);
+    drawCharts(chart_2);
+    drawCharts(chart_3);
+    drawCharts(chart_4);
+
 function drawCharts(obj){
-    var p3 = [];
+
     var p5 = [];
     var p10 = [];
     var p25 = [];
     var p50 = [];
     var p75 = [];
-    var p85 = [];
     var p90 = [];
     var p95 = [];
-    var p97 = [];
     var link = [];
     var cal = [];
     if(childData.gender===1){
@@ -69,23 +155,29 @@ function drawCharts(obj){
         link = obj.link.girl;
     }
     cal.push(obj.spot);
+    var pre = 1;
+    if(childData.ktype){
+        if(obj.type == 'length'){
+            pre = 1/2.54;
+        }else if(obj.type == 'weight'){
+            pre = 2.2046;
+        }else{
+            pre = 1;
+        }
+    }
     $.get(link,function(data){
 
         var lines = data.split('\n');
         var i = 1;
         for(i; i<lines.length-1; i++){
             var items = lines[i].split(',');
-
-            p3.push(parseFloat(items[5])	);		//p3
-            p5.push(parseFloat(items[6]));		//p5
-            p10.push(parseFloat(items[7]));		//p10
-            p25.push(parseFloat(items[8]));		//p25
-            p50.push(parseFloat(items[9]));		//p50
-            p75.push(parseFloat(items[10]));		//p75
-            p90.push(parseFloat(items[11]));		//p90
-            p95.push(parseFloat(items[12]));		//p95
-            p97.push(parseFloat(items[13]));		//p97
-
+            p5.push((parseFloat(items[6])*pre));		//p5
+            p10.push(parseFloat(items[7])*pre);		//p10
+            p25.push(parseFloat(items[8])*pre);		//p25
+            p50.push(parseFloat(items[9])*pre);		//p50
+            p75.push(parseFloat(items[10])*pre);		//p75
+            p90.push(parseFloat(items[11])*pre);		//p90
+            p95.push(parseFloat(items[12])*pre);		//p95
         }
         $('#'+obj.container).highcharts({
             title: {
@@ -105,20 +197,18 @@ function drawCharts(obj){
             },
             tooltip: {
                 formatter : function(){
-                    return 'Length:<b>'+this.y+'</b>, Age:<b>'+this.x+'</b>';
+                    return 'Length:<b>'+this.y.toFixed(3)+'</b>, Age:<b>'+this.x+'</b>';
                 }
             },
             yAxis : [{
                 title : {
                     text : obj.ytitle
                 },
-                tickInterval : 2,
-                minorTickInterval: 1,
+                tickInterval : obj.ytickInterval,
+                minorTickInterval: 2,
                 labels: {
-
                     formatter: obj.ycallback
                 }
-
             },
                 {
                     linkedTo : 0,
@@ -127,7 +217,6 @@ function drawCharts(obj){
                         text : obj.ytitle
                     },
                     labels: {
-
                         formatter: obj.ycallback
                     }
                 }
@@ -136,8 +225,8 @@ function drawCharts(obj){
                 title : {
                     text : obj.xtitle
                 },
-                tickInterval : 4,
-                minorTickInterval : 2,
+                tickInterval : obj.xtickInterval,
+                minorTickInterval : 1,
             },
             legend: {
                 layout: 'vertical',
@@ -146,10 +235,6 @@ function drawCharts(obj){
                 borderWidth: 0
             },
             series: [
-                {
-                    name : 'p3',
-                    data : p3
-                },
                 {
                     name : 'p5',
                     data : p5
@@ -177,10 +262,6 @@ function drawCharts(obj){
                 {
                     name : 'p95',
                     data : p95
-                },
-                {
-                    name : 'p97',
-                    data : p97
                 },
                 { type: 'scatter',
                     name: 'Your baby',
