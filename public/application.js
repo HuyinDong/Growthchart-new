@@ -8,7 +8,9 @@ var mainApplicationModule = angular.module('mainApplicationModule',
         'ngMaterial',
         'dialog',
         'form',
-        'charts'
+        'charts',
+        'signin',
+        'chartModule'
     ]);
 
 angular.element(document).ready(function(){
