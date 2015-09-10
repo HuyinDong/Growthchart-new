@@ -8,7 +8,7 @@
             <div layout="row">
             <div class = 'words fs-subhead display-block' flex = '10'>Unit:</div>
                 <div flex = '33'>
-                    <md-radio-group flex ng-model="child.unit">
+                    <md-radio-group flex ng-model="child.unit" ng-click = "toggle()">
                         <div layout="row">
                             <md-radio-button value="us" flex = '100'> US/Standard(pounds, inches) </md-radio-button>
                             <md-radio-button value="metric" flex = '100'> Metric(kilograms, centimeter) </md-radio-button>

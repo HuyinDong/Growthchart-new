@@ -14,12 +14,12 @@ module.exports = function(){
 
     app.set('view engine', 'ejs');
 
-
+    app.use(express.static('./public'));
 
     index(app);
     data(app);
     login(app);
-    app.use(express.static('./public'));
+
     return app;
 
 }

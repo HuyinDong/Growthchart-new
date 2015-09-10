@@ -11,9 +11,8 @@ signin.controller('signinController',
             $scope.name = $cookies.get('username');
         }
     $scope.signin = function(){
-        $http.post('/login',{username:$scope.person.username,password:$scope.person.password}).then(function(data){
-            console.log("cookie");
-            console.log($cookies.get('username'));
+        console.log("signin");
+        $http.post('/login',{username:$scope.person.email,password:$scope.person.password}).then(function(data){
             if($cookies.get('username')){
                 $('#profile').show();
                 $('#toin').hide();

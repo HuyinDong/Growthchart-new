@@ -49,6 +49,7 @@ module.exports = function(app){
     });
 
     app.post('/login',function(req, res, next) {
+         console.log("post");
         passport.authenticate('local', function(err, user, info) {
             if (err) { return next(err); }
             // Redirect if it fails
@@ -57,9 +58,9 @@ module.exports = function(app){
 
                 if (err) { return next(err); }
                 // Redirect if it succeeds
-                console.log("success");
-                res.cookie("username",user.username,{ maxAge: 900000 });
-                res.cookie("id",user.id,{ maxAge: 900000 });
+
+                res.cookie("username",user.username,{ maxAge: 9000 });
+                res.cookie("id",user.id,{ maxAge: 9000 });
 
                 return res.redirect('/');
             });
@@ -72,6 +73,8 @@ module.exports = function(app){
 
     app.get('/logout', function(req, res){
         req.logout();
+        res.clearCookie("username");
+        res.clearCookie("id");
         res.redirect('/');
     });
 

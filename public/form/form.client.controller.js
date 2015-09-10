@@ -3,35 +3,48 @@
  */
 form.controller('formController',
     function($scope,$http,$stateParams,$rootScope,$state,$mdDialog,$cookies,chartAPI){
-    var child = {};
+     $scope.child = {};
+        $scope.child.weight = {};
+        $scope.child.length = {};
+        $scope.child.hairCircumference = {};
     if($cookies.get('unit')){
-        child.unit = $cookies.get('unit');
+        $scope.child.unit = $cookies.get('unit');
     }else{
-        child.unit = 'us';
+        $scope.child.unit = 'us';
     }
 
-    $scope.child = child;
-    $rootScope.$watch(function() { return child.unit; }, function(newValue, oldValue) {
-        if (newValue) {
-            child.weight = {};
-            child.length = {};
-            child.hairCircumference = {};
+   /* $rootScope.$watch(function() { return $scope.child.unit; }, function(newValue, oldValue) {
+        console.log("watch");
+        console.log(newValue);
+        console.log(oldValue);
+        if (newValue !== oldValue) {
+            console.log("watch2");
+            $scope.child.weight = {};
+            $scope.child.length = {};
+            $scope.child.hairCircumference = {};
 
         }
     });
-
+*/
+        $scope.toggle = function(){
+            $scope.child.weight = {};
+            $scope.child.length = {};
+            $scope.child.hairCircumference = {};
+        }
     $scope.getChart = function(){
-        $cookies.put('unit',child.unit);
+        console.log($scope.child);
+        $cookies.put('unit',$scope.child.unit);
         var birth = moment($scope.datepicker.date.toString()).fromNow(true);
-        child.birth = birth;
+        $scope.child.birth = birth;
+
         $rootScope.child = $scope.child;
-        console.log(child);
+
         $mdDialog.show({
             templateUrl: './dialog/dialog.client.view.html',
             controller : 'dialogController',
             locals : {
                 loading : true,
-                child : child,
+                child : $scope.child,
                 title : 'GrowthChart',
                 content : 'Loading Chart',
                 url : 'home.detail'

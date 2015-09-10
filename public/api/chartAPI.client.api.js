@@ -12,7 +12,7 @@ chartModule.factory('chartAPI',['chartResource',
 
             selectAll: function (table,callback) {
                 chartResource.query({table: table}, function (result) {
-                    chartResource(result);
+                    callback(result);
                 });
             },
 
@@ -31,7 +31,6 @@ chartModule.factory('chartAPI',['chartResource',
 
             insert: function (table, object,callback) {
                 var entry = new chartResource();
-                console.log(entry);
                 var keys = Object.keys(object);
                 for(var i = 0 ; i< keys.length;i++){
                     entry[keys[i]] = object[keys[i]];

@@ -12,11 +12,15 @@ exports.selectOne = function(req,res,next){
     call(connection,sql,req,res,next);
 };
 
+
 exports.selectAll = function(req,res,next){
     console.log("selectAll");
     var sql = 'select * from ??';
+
     var inserts = ["p_"+req.params["table"]];
+
     sql = mysql.format(sql,inserts);
+    console.log(sql);
     call(connection,sql,req,res,next);
 }
 
@@ -25,9 +29,12 @@ exports.insert = function(req,res,next){
     var table = 'p_'+req.params.table;
     var sql = 'insert into '+table+' set ?';
     var obj = req.body;
+
     delete obj['table'];
+    console.log("obj:",obj);
+
     connection.query(sql,obj,function(err,result){
-        console.log(result);
+        console.log("result",result);
         if(err){
             res.send(err);
         }else{
@@ -78,8 +85,12 @@ exports.delete = function(req,res,next){
     });
 }
 
+
+
 function call(connection,query,req,res,next){
     connection.query(query,function(err,rows){
+        console.log(rows);
         res.json(rows);
+
     });
 }

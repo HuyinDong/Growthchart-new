@@ -10,6 +10,7 @@ var mainApplicationModule = angular.module('mainApplicationModule',
         'form',
         'charts',
         'signin',
+        'hsty',
         'chartModule'
     ]);
 

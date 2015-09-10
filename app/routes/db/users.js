@@ -4,7 +4,7 @@ var records = [
 ];
 
 exports.findById = function(id, cb) {
-	console.log("findById");
+
   process.nextTick(function() {
     var idx = id - 1;
     if (records[idx]) {
@@ -16,7 +16,6 @@ exports.findById = function(id, cb) {
 }
 
 exports.findByUsername = function(username, cb) {
-console.log("findByUsername");
   process.nextTick(function() {
     for (var i = 0, len = records.length; i < len; i++) {
       var record = records[i];
