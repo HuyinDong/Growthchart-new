@@ -24,8 +24,8 @@
       <file leaf-file-name="charts.client.controller.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/charts/charts.client.controller.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.9953198">
-              <caret line="107" column="15" selection-start-line="107" selection-start-column="15" selection-end-line="107" selection-end-column="15" />
+            <state vertical-scroll-proportion="4.2730107">
+              <caret line="151" column="47" selection-start-line="151" selection-start-column="47" selection-end-line="151" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -45,7 +45,7 @@
         <entry file="file://$PROJECT_DIR$/public/form/form.client.controller.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="28" column="35" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
+              <caret line="9" column="30" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="30" />
               <folding>
                 <element signature="e#0#40#0" expanded="false" />
               </folding>
@@ -943,7 +943,7 @@
     <entry file="file://$PROJECT_DIR$/public/form/form.client.controller.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="28" column="35" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="35" />
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="30" />
           <folding>
             <element signature="e#0#40#0" expanded="false" />
           </folding>
@@ -952,8 +952,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/charts/charts.client.controller.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.9953198">
-          <caret line="107" column="15" selection-start-line="107" selection-start-column="15" selection-end-line="107" selection-end-column="15" />
+        <state vertical-scroll-proportion="4.2730107">
+          <caret line="151" column="47" selection-start-line="151" selection-start-column="47" selection-end-line="151" selection-end-column="47" />
           <folding />
         </state>
       </provider>

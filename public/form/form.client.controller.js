@@ -7,6 +7,7 @@ form.controller('formController',
         $scope.child.weight = {};
         $scope.child.length = {};
         $scope.child.hairCircumference = {};
+        $scope.child.isHistory = false;
     if($cookies.get('unit')){
         $scope.child.unit = $cookies.get('unit');
     }else{
@@ -32,13 +33,10 @@ form.controller('formController',
             $scope.child.hairCircumference = {};
         }
     $scope.getChart = function(){
-        console.log($scope.child);
         $cookies.put('unit',$scope.child.unit);
         var birth = moment($scope.datepicker.date.toString()).fromNow(true);
         $scope.child.birth = birth;
-
         $rootScope.child = $scope.child;
-
         $mdDialog.show({
             templateUrl: './dialog/dialog.client.view.html',
             controller : 'dialogController',
