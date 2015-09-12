@@ -1,0 +1,9 @@
+<md-dialog aria-label="List dialog" layout="column" layout-align="center center" class ='dialog'>
+    <md-title class = "md-title">{{dialogTitle}}</md-title>
+    <md-dialog-content class = "md-body-2">{{dialogContent}}<md-progress-circular  ng-show = "loading" class="md-hue-4" md-mode="indeterminate"></md-progress-circular></md-dialog-content>
+    <div class="md-actions">
+        <md-button ng-click="closeDialog()" class="md-primary md-button">
+            OK
+        </md-button>
+    </div>
+</md-dialog>

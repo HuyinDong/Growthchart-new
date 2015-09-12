@@ -1,0 +1,109 @@
+<div class="col-sm-9 col-md-9">
+<div><span class="fs-display-1 display-block tc-pink-500 p+">Online Growth Chart</span></div>
+<div class="divider divider--dark"></div>
+
+<div id = "content">
+    <div layout="column">
+        <div flex offset = '10'>
+            <div layout="row">
+            <div class = 'words fs-subhead display-block' flex = '10'>Unit:</div>
+                <div flex = '33'>
+                    <md-radio-group flex ng-model="child.unit" ng-click = "toggle()">
+                        <div layout="row">
+                            <md-radio-button value="us" flex = '100'> US/Standard(pounds, inches) </md-radio-button>
+                            <md-radio-button value="metric" flex = '100'> Metric(kilograms, centimeter) </md-radio-button>
+                        </div>
+                    </md-radio-group>
+                </div>
+                </div>
+        </div>
+        <div flex offset = '10'>
+            <div layout="row">
+                <div class = 'words fs-subhead display-block' flex = '10'>Gender:</div>
+
+                    <div flex = '33'>
+                        <md-radio-group flex ng-model="child.gender">
+                            <div layout="row">
+                                <md-radio-button value="Boy" > Boy </md-radio-button>
+                                <md-radio-button value="Girl"> Girl </md-radio-button>
+                            </div>
+                        </md-radio-group>
+                    </div>
+
+            </div>
+        </div>
+        <div flex offset = '10'>
+            <div flex-item>
+                <lx-text-field label="Name">
+                    <input type="text" ng-model="child.name">
+                </lx-text-field>
+            </div>
+        </div>
+        <div flex offset = '10'>
+            <div flex-item>
+                <lx-date-picker ng-model = 'child.date' model="datepicker.date" label="Pick a date" locale="us" allow-clear="true"></lx-date-picker>
+            </div>
+        </div>
+        <div flex offset = '10' ng-show = "child.unit == 'us'">
+            <div layout = 'row' flex-gutter="24">
+            <div flex-item>
+                <lx-text-field label="Weight(lbs)">
+                    <input type="text" ng-model="child.weight.lbs">
+                </lx-text-field>
+            </div>
+                <div flex offset = '10'>
+            <div>
+                    <lx-text-field label="Weight(ounces)">
+                        <input type="text" ng-model="child.weight.ounces">
+                    </lx-text-field>
+                </div>
+            </div>
+        </div>
+        <div >
+            <div flex-item>
+                <lx-text-field label="Length(inches)">
+                    <input type="text" ng-model="child.length.inches">
+                </lx-text-field>
+            </div>
+        </div>
+        <div>
+            <div flex-item>
+                <lx-text-field label="Hair Circumference(inches)">
+                    <input type="text" ng-model="child.hairCircumference.inches">
+                </lx-text-field>
+            </div>
+        </div>
+        </div>
+        <div flex offset = '10' ng-hide = "child.unit == 'us'">
+                <div flex-item>
+                    <lx-text-field label="Weight(kg)">
+                        <input type="text" ng-model="child.weight.kg">
+                    </lx-text-field>
+                </div>
+            <div >
+                <div flex-item>
+                    <lx-text-field label="Length(cm)">
+                        <input type="text" ng-model="child.length.cm">
+                    </lx-text-field>
+                </div>
+            </div>
+            <div>
+                <div flex-item>
+                    <lx-text-field label="Hair Circumference(cm)">
+                        <input type="text" ng-model="child.hairCircumference.cm">
+                    </lx-text-field>
+                </div>
+            </div>
+        </div>
+        <div flex offset = '10'>
+        <md-button class="md-primary md-raised" ng-click = 'getChart()'>
+            Get Chart
+        </md-button>
+        </div>
+</div>
+
+    </div>
+    <div id = 'charts'>
+        <div ui-view></div>
+    </div>
+    </div>

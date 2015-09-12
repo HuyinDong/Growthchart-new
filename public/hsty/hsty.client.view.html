@@ -1,0 +1,22 @@
+<div class="col-sm-9 col-md-9">
+    <div><span class="fs-display-1 display-block tc-pink-500 p+">View History</span></div>
+    <div class="divider divider--dark"></div>
+
+    <div id = "content">
+        <div ng-show = "isWarn"><span class="fs-title display-block">{{warn}}</span></div>
+        <ul class="list mt++">
+            <li class="list-row" ng-repeat = 'child in childData'>
+                <div class="list-row__content"><a href = "#" ng-click = 'getChart(child)'>
+                    <span class="fs-headline display-block">name : {{child.name}}</span>
+                    <span class="fs-body-2 display-block">
+                        Parameters: age:{{child.age}} months, gender:{{child.gender}}, unit:{{child.unit}}</span>
+                </div>
+                </a>
+            </li>
+            </ul>
+        </div>
+
+    <div id = 'charts'>
+        <div ui-view></div>
+    </div>
+    </div>
