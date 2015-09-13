@@ -3,22 +3,24 @@
  */
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var db = require('./db');
-
-
+var connection = require('../../config/mysql');
+var mysql = require('mysql');
 module.exports = function(app){
     passport.use(new LocalStrategy(
-        function(username, password, done) {
-            db.users.findByUsername(username, function (err, user) {
-                if (err) { return done(err); }
-                if (!user) {
-                    return done(null, false, { message: 'Incorrect username.' });
+        function(email, password, done) {
+            connection.query("select * from p_users where email = '"+email+"'",function(err,user){
+                console.log(user);
+                if(err){
+                    return done(err);
                 }
-                if (user.password != password) {
-                    return done(null, false, { message: 'Incorrect password.' });
+                if(user.length == 0){
+                    console.log("length==0");
+                    return done(null,false,{message:"Invalid Username or Password"});
                 }
-
-                return done(null, user);
+                if(user[0].password != password){
+                    return done(null,false, {message : "Invalid Username or Password"});
+                }
+                return done(null,user[0]);
             });
         }
     ));
@@ -44,30 +46,34 @@ module.exports = function(app){
     app.use(passport.initialize());
     app.use(passport.session());
 
-    app.get('/login',function(req,res){
-        res.redirect('/invalid');
-    });
 
     app.post('/login',function(req, res, next) {
          console.log("post");
         passport.authenticate('local', function(err, user, info) {
-            if (err) { return next(err); }
+            console.log("auth cb");
+            console.log(user);
+            if (err) {
+                console.log("err");
+                return next(err); }
             // Redirect if it fails
-            if (!user) { return res.redirect('/login'); }
+            if (!user) {
+                console.log("!user");
+                return res.redirect('/login'); }
             req.logIn(user, function(err) {
-
                 if (err) { return next(err); }
                 // Redirect if it succeeds
 
-                res.cookie("username",user.username,{ maxAge: 9000 });
-                res.cookie("id",user.id,{ maxAge: 9000 });
-
-                return res.redirect('/');
             });
         })(req, res, next);
     });
 
+    app.get('/login',function(req,res){
+        console.log("login get");
+
+        res.render('invalid');
+    });
     app.get('/invalid',function(req,res){
+        console.log("invalid");
         res.render('invalid');
     });
 

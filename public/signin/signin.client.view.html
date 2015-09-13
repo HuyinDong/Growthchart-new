@@ -50,6 +50,7 @@
 
                         <div id="sign" layout = 'column' layout-align="space-around center"
                                 >
+                            <form method = 'post' action = '/login'>
                             <div flex-item>
                                 <lx-text-field label="Email">
                                     <input type="text" ng-model="person.email" name = "username">
@@ -69,8 +70,9 @@
                                     <button class="btn btn--m btn--red btn--raised" lx-ripple ng-click="authenticate('google')">
                                         <i class="fa fa-google-plus" ></i>Google+</button>
                                 </div>
-                            </div>
 
+                            </div>
+                            </form>
 
                             <div layout = 'row' style = "margin-top:10px;">
                                 <div flex>
