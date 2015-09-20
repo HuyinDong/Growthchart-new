@@ -6,10 +6,12 @@ var LocalStrategy = require('passport-local').Strategy;
 var connection = require('../../config/mysql');
 var mysql = require('mysql');
 module.exports = function(app){
+    console.log("asd");
     passport.use(new LocalStrategy(
-        function(email, password, done) {
-            connection.query("select * from p_users where email = '"+email+"'",function(err,user){
-                console.log(user);
+        function(username, password, done) {
+            console.log("localstrategy");
+            connection.query("select * from p_users where email = '"+username+"'",function(err,user){
+                console.log("local",user);
                 if(err){
                     return done(err);
                 }
@@ -20,7 +22,7 @@ module.exports = function(app){
                 if(user[0].password != password){
                     return done(null,false, {message : "Invalid Username or Password"});
                 }
-                return done(null,user[0]);
+                return done(null,user);
             });
         }
     ));
@@ -34,7 +36,7 @@ module.exports = function(app){
 // serializing, and querying the user record by ID from the database when
 // deserializing.
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user);
     });
 
     passport.deserializeUser(function(id, done) {
@@ -47,25 +49,7 @@ module.exports = function(app){
     app.use(passport.session());
 
 
-    app.post('/login',function(req, res, next) {
-         console.log("post");
-        passport.authenticate('local', function(err, user, info) {
-            console.log("auth cb");
-            console.log(user);
-            if (err) {
-                console.log("err");
-                return next(err); }
-            // Redirect if it fails
-            if (!user) {
-                console.log("!user");
-                return res.redirect('/login'); }
-            req.logIn(user, function(err) {
-                if (err) { return next(err); }
-                // Redirect if it succeeds
-
-            });
-        })(req, res, next);
-    });
+    app.post('/login',loginPost);
 
     app.get('/login',function(req,res){
         console.log("login get");
@@ -79,9 +63,33 @@ module.exports = function(app){
 
     app.get('/logout', function(req, res){
         req.logout();
-        res.clearCookie("username");
-        res.clearCookie("id");
+        res.clearCookie('username', { path: '/' });
         res.redirect('/');
     });
 
+
 };
+
+    function loginPost(req,res,next){
+    passport.authenticate('local', function(err, user, info) {
+        console.log("loginpost");
+        if (err) {
+            // if error happens
+            return next(err);
+        }
+        if (!user) {
+            req.session.messages = info.message;
+            return res.redirect('/login');
+        }
+        req.logIn(user, function(err) {
+            if (err) {
+                req.session.messages = "Error";
+                return next(err);
+            }
+            console.log(user);
+            res.cookie('username', user[0].email, { maxAge: 900000 });
+            req.session.messages = "Login successfully";
+            return res.redirect('/');
+        });
+    })(req, res, next);
+    }
