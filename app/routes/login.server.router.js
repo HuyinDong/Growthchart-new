@@ -10,14 +10,11 @@ module.exports = function(app){
 
     passport.use(new LocalStrategy(
         function(username, password, done) {
-            console.log("localstrategy");
             connection.query("select * from p_users where email = '"+username+"'",function(err,user){
-                console.log("local",user);
                 if(err){
                     return done(err);
                 }
                 if(user.length == 0){
-                    console.log("length==0");
                     return done(null,false,{message:"Invalid Username or Password"});
                 }
                 if(user[0].password != password){
@@ -56,8 +53,6 @@ module.exports = function(app){
     app.post('/login',loginPost);
 
     app.get('/login',function(req,res){
-        console.log("login get");
-
         res.render('invalid');
     });
     app.get('/invalid',function(req,res) {
@@ -72,13 +67,13 @@ module.exports = function(app){
     app.get('/logout', function(req, res){
         req.logout();
         res.clearCookie('username', { path: '/' });
+        res.clearCookie('id', { path: '/' });
         res.redirect('/');
     });
 
 };
     function loginPost(req,res,next){
     passport.authenticate('local', function(err, user, info) {
-        console.log("loginpost");
         if (err) {
             // if error happens
             return next(err);
@@ -94,6 +89,7 @@ module.exports = function(app){
             }
             console.log(user);
             res.cookie('username', user[0].email, { maxAge: 900000 });
+            res.cookie('id', user[0].id, { maxAge: 900000 });
             req.session.messages = "Login successfully";
             return res.redirect('/');
         });
