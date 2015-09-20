@@ -3,10 +3,11 @@
  */
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+
 var connection = require('../../config/mysql');
 var mysql = require('mysql');
 module.exports = function(app){
-    console.log("asd");
+
     passport.use(new LocalStrategy(
         function(username, password, done) {
             console.log("localstrategy");
@@ -23,6 +24,7 @@ module.exports = function(app){
                     return done(null,false, {message : "Invalid Username or Password"});
                 }
                 return done(null,user);
+
             });
         }
     ));
@@ -36,7 +38,9 @@ module.exports = function(app){
 // serializing, and querying the user record by ID from the database when
 // deserializing.
     passport.serializeUser(function(user, done) {
+
         done(null, user);
+
     });
 
     passport.deserializeUser(function(id, done) {
@@ -56,10 +60,14 @@ module.exports = function(app){
 
         res.render('invalid');
     });
-    app.get('/invalid',function(req,res){
+    app.get('/invalid',function(req,res) {
         console.log("invalid");
-        res.render('invalid');
     });
+    app.get('/login',function(req,res){
+        res.redirect('/invalid');
+    });
+
+
 
     app.get('/logout', function(req, res){
         req.logout();
@@ -67,9 +75,7 @@ module.exports = function(app){
         res.redirect('/');
     });
 
-
 };
-
     function loginPost(req,res,next){
     passport.authenticate('local', function(err, user, info) {
         console.log("loginpost");
@@ -93,3 +99,5 @@ module.exports = function(app){
         });
     })(req, res, next);
     }
+
+
