@@ -3,6 +3,7 @@
     <div class="divider divider--dark"></div>
 
     <div id = "content">
+        <div ng-show = "isWarn"><span class="fs-title display-block">{{warn}}</span></div>
         <ul class="list mt++">
             <li class="list-row" ng-repeat = 'child in childData'>
                 <div class="list-row__content"><a href = "#" ng-click = 'getChart(child)'>

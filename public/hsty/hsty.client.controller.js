@@ -2,16 +2,19 @@
  * Created by dongyin on 9/10/15.
  */
 hsty.controller('hstyController',function($scope,$state,chartAPI,$cookies,$rootScope,$mdDialog){
-
+    $scope.isWarn = false;
     $scope.goHistory = function(){
         $state.go('history');
     }
-    var id = $cookies.get("id");
-    console.log(id);
-    chartAPI.selectOne("child",id,function(data){
-        $scope.childData = data;
-    });
-
+    if($cookies.get("id")) {
+        var id = $cookies.get("id");
+        chartAPI.selectOne("child", id, function (data) {
+            $scope.childData = data;
+        });
+    }else{
+        $scope.isWarn = true;
+        $scope.warn = "Please log in frist."
+    }
     $scope.getChart = function(child){
         console.log(child);
         var newData = {};

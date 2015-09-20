@@ -149,10 +149,11 @@ charts.controller('chartsController',
     drawCharts(chart_2);
     drawCharts(chart_3);
     drawCharts(chart_4);
-        if(!child.isHistory){
+        if(!child.isHistory && $cookies.get("id")){
             storeData();
         }
 function storeData(){
+    console.log("storeData");
     var newData = {};
     if(child.unit = 'metric'){
             newData.weight_kg = parseInt(child.weight.kg);

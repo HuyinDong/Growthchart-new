@@ -47,9 +47,10 @@
                             <i class="ace-icon fa fa-user"></i>
                             <strong> Sign In </strong>
                         </a>
-
+                        <form method = 'post' action = 'login'>
                         <div id="sign" layout = 'column' layout-align="space-around center"
                                 >
+                           <!-- <form method = 'post' action = '/login'>-->
                             <div flex-item>
                                 <lx-text-field label="Email">
                                     <input type="text" ng-model="person.email" name = "username">
@@ -62,16 +63,17 @@
                             </div>
                             <div layout = 'row'>
                                 <div flex>
-                                    <button class="btn btn--m btn--blue btn--raised" lx-ripple ng-click="signin()">
+                                    <button class="btn btn--m btn--blue btn--raised" lx-ripple>
                                         Signin</button>
                                 </div>
                                 <div flex>
                                     <button class="btn btn--m btn--red btn--raised" lx-ripple ng-click="authenticate('google')">
                                         <i class="fa fa-google-plus" ></i>Google+</button>
                                 </div>
+
                             </div>
-
-
+                           <!-- </form>
+                                        -->
                             <div layout = 'row' style = "margin-top:10px;">
                                 <div flex>
                                     <button class="btn btn--m btn--blue btn--raised" lx-ripple  ng-click="authenticate('facebook')">
@@ -86,7 +88,7 @@
 
 
                         </div>
-
+                        </form>
                     <li class="light-blue" id="profile">
                     <span class="fs-title display-block">welcome {{name}}</span>
 
