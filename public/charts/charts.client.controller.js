@@ -73,7 +73,12 @@ charts.controller('chartsController',
         },
         type : 'length',
         xtickInterval : 2,
-        ytickInterval : 2
+        ytickInterval : 2,
+        xy : false,
+        tooltip : {
+            x : 'Age',
+            y : 'Length'
+        }
     }
 
     var chart_2 = {
@@ -96,7 +101,12 @@ charts.controller('chartsController',
         },
         type : 'weight',
         xtickInterval : 2,
-        ytickInterval : 4
+        ytickInterval : 4,
+        xy : false,
+        tooltip : {
+            x : 'Age',
+            y : 'Weight'
+        }
     };
 
     var chart_3 = {
@@ -119,7 +129,12 @@ charts.controller('chartsController',
         },
         type : 'length',
         xtickInterval : 2,
-        ytickInterval : 2
+        ytickInterval : 2,
+        xy : false,
+        tooltip : {
+            x : 'Age',
+            y : 'HC'
+        }
     };
 
     var chart_4 = {
@@ -140,9 +155,14 @@ charts.controller('chartsController',
         xcallback : function(){
             return this.value +units.length;
         },
-        type : 'weight',
+        type : 'mixed',
         xtickInterval : 2,
-        ytickInterval : 4
+        ytickInterval : 4,
+        xy : true,
+        tooltip : {
+            x : 'Length',
+            y : 'Weight'
+        }
     };
 
     drawCharts(chart_1);
@@ -194,7 +214,7 @@ function storeData(){
 }
 
 function drawCharts(obj){
-
+    console.log(obj.spot);
     var p5 = [];
     var p10 = [];
     var p25 = [];
@@ -210,12 +230,18 @@ function drawCharts(obj){
         link = obj.link.girl;
     }
     cal.push(obj.spot);
+    var preWei = 1;
+    var preLen = 1;
     var pre = 1;
-    if(childData.ktype){
+    console.log(childData.ktype);
+    if(childData.ktype == 1){
         if(obj.type == 'length'){
             pre = 1/2.54;
         }else if(obj.type == 'weight'){
             pre = 2.2046;
+        }else if(obj.type == 'mixed'){
+            preWei =  1/2.54;
+            preLen = 2.2046;
         }else{
             pre = 1;
         }
@@ -224,15 +250,29 @@ function drawCharts(obj){
 
         var lines = data.split('\n');
         var i = 1;
-        for(i; i<lines.length-1; i++){
-            var items = lines[i].split(',');
-            p5.push((parseFloat(items[6])*pre));		//p5
-            p10.push(parseFloat(items[7])*pre);		//p10
-            p25.push(parseFloat(items[8])*pre);		//p25
-            p50.push(parseFloat(items[9])*pre);		//p50
-            p75.push(parseFloat(items[10])*pre);		//p75
-            p90.push(parseFloat(items[11])*pre);		//p90
-            p95.push(parseFloat(items[12])*pre);		//p95
+
+        if(!obj.xy) {
+            for (i; i < lines.length - 1; i++) {
+                var items = lines[i].split(',');
+                p5.push((parseFloat(items[6]) * pre));		//p5
+                p10.push(parseFloat(items[7]) * pre);		//p10
+                p25.push(parseFloat(items[8]) * pre);		//p25
+                p50.push(parseFloat(items[9]) * pre);		//p50
+                p75.push(parseFloat(items[10]) * pre);		//p75
+                p90.push(parseFloat(items[11]) * pre);		//p90
+                p95.push(parseFloat(items[12]) * pre);		//p95
+            }
+        }else{
+            for (i; i < lines.length - 1; i++) {
+                var items = lines[i].split(',');
+                p5.push([(parseFloat(items[1]) * preLen),(parseFloat(items[6]) * preWei)]);		//p5
+                p10.push([(parseFloat(items[1]) * preLen),(parseFloat(items[7]) * pre)]);		//p10
+                p25.push([(parseFloat(items[1]) * preLen),(parseFloat(items[8]) * pre)]);		//p25
+                p50.push([(parseFloat(items[1]) * preLen),(parseFloat(items[9]) * pre)]);		//p50
+                p75.push([(parseFloat(items[1]) * preLen),(parseFloat(items[10]) * pre)]);		//p75
+                p90.push([(parseFloat(items[1]) * preLen),(parseFloat(items[11]) * pre)]);		//p90
+                p95.push([(parseFloat(items[1]) * preLen),(parseFloat(items[12]) * pre)]);		//p95
+            }
         }
         $('#'+obj.container).highcharts({
             title: {
@@ -252,7 +292,7 @@ function drawCharts(obj){
             },
             tooltip: {
                 formatter : function(){
-                    return 'Length:<b>'+this.y.toFixed(3)+'</b>, Age:<b>'+this.x+'</b>';
+                    return obj.tooltip.x+':<b>'+this.x+'</b>,'+obj.tooltip.y+':<b>'+this.y.toFixed(3)+'</b>';
                 }
             },
             yAxis : [{
