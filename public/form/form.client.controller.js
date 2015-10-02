@@ -3,7 +3,8 @@
  */
 form.controller('formController',
     function($scope,$http,$stateParams,$rootScope,$state,$mdDialog,$cookies,chartAPI){
-     $scope.child = {};
+
+        $scope.child = {};
         $scope.child.weight = {};
         $scope.child.length = {};
         $scope.child.hairCircumference = {};
@@ -14,19 +15,27 @@ form.controller('formController',
         $scope.child.unit = 'us';
     }
 
-   /* $rootScope.$watch(function() { return $scope.child.unit; }, function(newValue, oldValue) {
-        console.log("watch");
-        console.log(newValue);
-        console.log(oldValue);
-        if (newValue !== oldValue) {
-            console.log("watch2");
-            $scope.child.weight = {};
-            $scope.child.length = {};
-            $scope.child.hairCircumference = {};
+        $scope.overAge = false;
 
-        }
+            $rootScope.$watch(function() { return $scope.datepicker.date; }, function (newValue, oldValue) {
+                    if ( typeof oldValue !== 'undefined' || oldValue !== newValue) {
+                        var birth = moment($scope.datepicker.date.toString()).fromNow(true);
+                        var age = birth.split(" ");
+                        if (age[1] == 'months') {
+                            age = parseInt(age[0]);
+                        } else if (age[1] == 'years') {
+                            age = parseInt(age[0]) * 12;
+                        } else {
+                            age = 1;
+                        }
+                        if (parseInt(age) > 24) {
+                            $scope.overAge = true;
+                        }else{
+                            $scope.overAge = false;
+                        }
+                }
     });
-*/
+
         $scope.toggle = function(){
             $scope.child.weight = {};
             $scope.child.length = {};

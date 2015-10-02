@@ -9,26 +9,36 @@
             <div layout="row">
             <div class = 'words fs-subhead display-block' flex = '10'>Unit:</div>
                 <div flex = '33'>
-                    <md-radio-group flex ng-model="child.unit" ng-click = "toggle()">
+                    <md-input-container>
+                    <md-radio-group flex ng-model="child.unit" ng-click = "toggle()" name = "unit">
                         <div layout="row">
                             <md-radio-button value="us" flex = '100'> US/Standard(pounds, inches) </md-radio-button>
                             <md-radio-button value="metric" flex = '100'> Metric(kilograms, centimeter) </md-radio-button>
                         </div>
                     </md-radio-group>
+                        </md-input-container>
                 </div>
                 </div>
         </div>
+
+
         <div flex offset = '10'>
             <div layout="row">
                 <div class = 'words fs-subhead display-block' flex = '10'>Gender:</div>
 
                     <div flex = '33'>
-                        <md-radio-group flex ng-model="child.gender" required="">
+                        <md-input-container>
+                        <md-radio-group flex ng-model="child.gender" name = "gender" required>
                             <div layout="row">
                                 <md-radio-button value="Boy"> Boy </md-radio-button>
                                 <md-radio-button value="Girl" > Girl </md-radio-button>
                             </div>
                         </md-radio-group>
+                            </md-input-container>
+                        <div role="alert">
+                <span class="text-field-error" ng-show="growth.gender.$touched && growth.gender.$error.required">
+                 *Required!</span>
+                        </div>
                     </div>
 
             </div>
@@ -37,22 +47,29 @@
             <div flex-item>
                 <md-input-container>
                 <lx-text-field label="Name">
-                    <input type="text" ng-model="child.name" ng-required="true">
+                    <input type="text" name="name" ng-model="child.name"  required>
                 </lx-text-field>
+                    <div role="alert">
+                <span class="text-field-error" ng-show="growth.name.$touched && growth.name.$error.required">
+                 *Required!</span>
+                    </div>
                 </md-input-container>
             </div>
-            <md-input-container flex offset = '10'>
-                <label>Client Name</label>
-                <input required="" name="clientName" ng-model="project.clientName" ng-required="true">
-                <div ng-messages="projectForm.clientName.$error">
-                    <div ng-message="required">This is required.</div>
-                </div>
-            </md-input-container>
-
         </div>
+       length: {{growth.date.$untouched}}/{{growth.date}}
         <div flex offset = '10'>
             <div flex-item>
+
                 <lx-date-picker ng-model = 'child.date' model="datepicker.date" label="Pick a date" locale="us" allow-clear="true"></lx-date-picker>
+                </md-input-container>
+                <div role="alert">
+                <span class="text-field-error" ng-show="growth.name.$touched && growth.name.$error.required">
+                 *Required!</span>
+                </div>
+                <div role="alert">
+                <span class="text-field-error" ng-show="overAge">
+                 This page is only for the infant with age less than 2 years old. Please go to the page for the children and teenagers</span>
+                </div>
             </div>
         </div>
         <div flex offset = '10' ng-show = "child.unit == 'us'">
