@@ -28,17 +28,14 @@
 
                     <div flex = '33'>
                         <md-input-container>
-                        <md-radio-group flex ng-model="child.gender" name = "gender" required>
+                        <md-radio-group flex ng-model="child.gender" name = "gender" >
                             <div layout="row">
                                 <md-radio-button value="Boy"> Boy </md-radio-button>
                                 <md-radio-button value="Girl" > Girl </md-radio-button>
                             </div>
                         </md-radio-group>
                             </md-input-container>
-                        <div role="alert">
-                <span class="text-field-error" ng-show="growth.gender.$touched && growth.gender.$error.required">
-                 *Required!</span>
-                        </div>
+
                     </div>
 
             </div>
@@ -58,7 +55,7 @@
         </div>
         <div flex offset = '10'>
             <div flex-item>
-                <md-input-container>
+
                 <lx-date-picker ng-model = 'child.date' model="datepicker.date" label="Pick a date" locale="us" allow-clear="true" name = "date"></lx-date-picker>
 
                 <div role="alert">
@@ -69,7 +66,7 @@
                 <span class="text-field-error" ng-show="overAge">
                  This page is only for the infant with age less than 2 years old. Please go to the page for the children and teenagers</span>
                 </div>
-                </md-input-container>
+
             </div>
         </div>
         <div flex offset = '10' ng-show = "child.unit == 'us'">

@@ -14,7 +14,7 @@ form.controller('formController',
     }else{
         $scope.child.unit = 'us';
     }
-
+        $scope.child.gender = 'Girl';
         $scope.overAge = false;
 
             $rootScope.$watch(function() { return $scope.datepicker.date; }, function (newValue, oldValue) {
