@@ -49,4 +49,13 @@ form.controller('formController',
             }
         });
     };
+
+
+    $scope.validation = {
+        gender : function(){
+            if($scope.child.gender == null){
+                return false;
+            }
+        }
+    }
 });

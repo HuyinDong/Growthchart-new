@@ -3,6 +3,7 @@
 <div class="divider divider--dark"></div>
 
 <div id = "content">
+    <form name = "growth">
     <div layout="column">
         <div flex offset = '10'>
             <div layout="row">
@@ -22,10 +23,10 @@
                 <div class = 'words fs-subhead display-block' flex = '10'>Gender:</div>
 
                     <div flex = '33'>
-                        <md-radio-group flex ng-model="child.gender">
+                        <md-radio-group flex ng-model="child.gender" required="">
                             <div layout="row">
-                                <md-radio-button value="Boy" > Boy </md-radio-button>
-                                <md-radio-button value="Girl"> Girl </md-radio-button>
+                                <md-radio-button value="Boy"> Boy </md-radio-button>
+                                <md-radio-button value="Girl" > Girl </md-radio-button>
                             </div>
                         </md-radio-group>
                     </div>
@@ -34,10 +35,20 @@
         </div>
         <div flex offset = '10'>
             <div flex-item>
+                <md-input-container>
                 <lx-text-field label="Name">
-                    <input type="text" ng-model="child.name">
+                    <input type="text" ng-model="child.name" ng-required="true">
                 </lx-text-field>
+                </md-input-container>
             </div>
+            <md-input-container flex offset = '10'>
+                <label>Client Name</label>
+                <input required="" name="clientName" ng-model="project.clientName" ng-required="true">
+                <div ng-messages="projectForm.clientName.$error">
+                    <div ng-message="required">This is required.</div>
+                </div>
+            </md-input-container>
+
         </div>
         <div flex offset = '10'>
             <div flex-item>
@@ -96,12 +107,12 @@
             </div>
         </div>
         <div flex offset = '10'>
-        <md-button class="md-primary md-raised" ng-click = 'getChart()'>
-            Get Chart
-        </md-button>
+        <input type = 'submit' class="md-primary md-raised" ng-click = 'getChart()' value = "Get Chart" />
+
+
         </div>
 </div>
-
+    </form>
     </div>
     <div id = 'charts'>
         <div ui-view></div>
