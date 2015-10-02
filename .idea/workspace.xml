@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7b914512-e836-42fb-87be-fcf486023f88" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/form/form.client.controller.js" afterPath="$PROJECT_DIR$/public/form/form.client.controller.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/form/form.client.view.html" afterPath="$PROJECT_DIR$/public/form/form.client.view.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="growthchart.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -58,7 +58,7 @@
         <entry file="file://$PROJECT_DIR$/public/form/form.client.view.html">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.67373574">
-              <caret line="72" column="18" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="18" />
+              <caret line="197" column="81" selection-start-line="197" selection-start-column="81" selection-end-line="197" selection-end-column="81" />
               <folding />
             </state>
           </provider>
@@ -79,8 +79,8 @@
         <option value="$PROJECT_DIR$/public/hsty/hsty.client.controller.js" />
         <option value="$PROJECT_DIR$/app/routes/login.server.router.js" />
         <option value="$PROJECT_DIR$/public/charts/charts.client.controller.js" />
-        <option value="$PROJECT_DIR$/public/form/form.client.view.html" />
         <option value="$PROJECT_DIR$/public/form/form.client.controller.js" />
+        <option value="$PROJECT_DIR$/public/form/form.client.view.html" />
       </list>
     </option>
   </component>
@@ -689,7 +689,7 @@
     <entry file="file://$PROJECT_DIR$/public/form/form.client.view.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.67373574">
-          <caret line="72" column="18" selection-start-line="72" selection-start-column="18" selection-end-line="72" selection-end-column="18" />
+          <caret line="197" column="81" selection-start-line="197" selection-start-column="81" selection-end-line="197" selection-end-column="81" />
           <folding />
         </state>
       </provider>
