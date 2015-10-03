@@ -1,205 +1,216 @@
 <div class="col-sm-9 col-md-9">
-<div><span class="fs-display-1 display-block tc-pink-500 p+">Online Growth Chart</span></div>
-<div class="divider divider--dark"></div>
+    <div><span class="fs-display-1 display-block tc-pink-500 p+">Online Growth Chart</span></div>
+    <div class="divider divider--dark"></div>
 
-<div id = "content">
-    <form name = "growth" submit = "getChart(growth.$valid)">
-    <div layout="column">
-        <div flex offset = '10'>
-            <div layout="row">
-            <div class = 'words fs-subhead display-block' flex = '10'>Unit:</div>
-                <div flex = '33'>
-                    <md-input-container>
-                    <md-radio-group flex ng-model="child.unit" ng-click = "toggle()" name = "unit">
-                        <div layout="row">
-                            <md-radio-button value="us" flex = '100'> US/Standard(pounds, inches) </md-radio-button>
-                            <md-radio-button value="metric" flex = '100'> Metric(kilograms, centimeter) </md-radio-button>
+    <div id="content">
+        <form name="growth"  novalidate>
+            <div layout="column">
+                <div flex offset='10'>
+                    <div layout="row">
+                        <div class='words fs-subhead display-block' flex='10'>Unit:</div>
+                        <div flex='33'>
+                            <md-input-container>
+                                <md-radio-group flex ng-model="child.unit" ng-click="toggle()" name="unit">
+                                    <div layout="row">
+                                        <md-radio-button value="us" flex='100'> US/Standard(pounds, inches)
+                                        </md-radio-button>
+                                        <md-radio-button value="metric" flex='100'> Metric(kilograms, centimeter)
+                                        </md-radio-button>
+                                    </div>
+                                </md-radio-group>
+                            </md-input-container>
                         </div>
-                    </md-radio-group>
-                        </md-input-container>
+                    </div>
                 </div>
-                </div>
-        </div>
+                <div flex offset='10'>
+                    <div layout="row">
+                        <div class='words fs-subhead display-block' flex='10'>Gender:</div>
 
-
-        <div flex offset = '10'>
-            <div layout="row">
-                <div class = 'words fs-subhead display-block' flex = '10'>Gender:</div>
-
-                    <div flex = '33'>
-                        <md-input-container>
-                        <md-radio-group flex ng-model="child.gender" name = "gender" >
-                            <div layout="row">
-                                <md-radio-button value="Boy"> Boy </md-radio-button>
-                                <md-radio-button value="Girl" > Girl </md-radio-button>
-                            </div>
-                        </md-radio-group>
+                        <div flex='33'>
+                            <md-input-container>
+                                <md-radio-group flex ng-model="child.gender" name="gender">
+                                    <div layout="row">
+                                        <md-radio-button value="Boy"> Boy</md-radio-button>
+                                        <md-radio-button value="Girl"> Girl</md-radio-button>
+                                    </div>
+                                </md-radio-group>
                             </md-input-container>
 
-                    </div>
+                        </div>
 
-            </div>
-        </div>
-        <div flex offset = '10'>
-            <div flex-item>
-                <md-input-container>
-                <lx-text-field label="Name">
-                    <input type="text" name="name" ng-model="child.name"  required>
-                </lx-text-field>
-                    <div role="alert">
+                    </div>
+                </div>
+                <div flex offset='10'>
+                    <div flex-item>
+                        <md-input-container>
+                            <lx-text-field label="Name">
+                                <input type="text" name="name" ng-model="child.name" required>
+                            </lx-text-field>
+                            <div role="alert">
                 <span class="text-field-error" ng-show="growth.name.$touched && growth.name.$error.required">
                  *Required!</span>
+                            </div>
+                        </md-input-container>
                     </div>
-                </md-input-container>
-            </div>
-        </div>
-        <div flex offset = '10'>
-            <div flex-item>
-
-                <lx-date-picker ng-model = 'child.date' model="datepicker.date" label="Pick a date" locale="us" allow-clear="true" name = "date"></lx-date-picker>
-
-                <div role="alert">
-                <span class="text-field-error" ng-show="growth.date.$touched && growth.date.$error.required">
-                 *Required!</span>
                 </div>
-                <div role="alert">
+                <div flex offset='10'>
+                    <div flex-item>
+                        <lx-date-picker ng-model='child.date' model="datepicker.date" label="Pick a date" locale="us"
+                                        allow-clear="true"></lx-date-picker>
+                        <input type="hidden" ng-model='datepicker.date' name='date' required/>
+
+                        <div role="alert">
+                <span class="text-field-error" ng-show="!untouched && growth.date.$error.required">
+                 *Required!</span>
+                        </div>
+                        <div role="alert">
                 <span class="text-field-error" ng-show="overAge">
                  This page is only for the infant with age less than 2 years old. Please go to the page for the children and teenagers</span>
+                        </div>
+                    </div>
                 </div>
-
-            </div>
-        </div>
-        <div flex offset = '10' ng-show = "child.unit == 'us'">
-            <div layout = 'row' flex-gutter="24">
-            <div flex-item>
-                <md-input-container>
-                <lx-text-field label="Weight(lbs)">
-                    <input type="number" ng-model="child.weight.lbs" ng-min = "10" ng-max = "100" required name = "lbs">
-                </lx-text-field>
-                <div role="alert">
+                <div flex offset='10' ng-show="child.unit == 'us'">
+                    <div layout='row' flex-gutter="24">
+                        <div flex-item>
+                            <md-input-container>
+                                <lx-text-field label="Weight(lbs)">
+                                    <input type="number" ng-model="child.weight.lbs" ng-min="10" ng-max="100" required
+                                           name="lbs">
+                                </lx-text-field>
+                                <div role="alert">
                 <span class="text-field-error" ng-show="growth.lbs.$touched && growth.lbs.$error.required">
                  *Required!</span>
                 <span class="text-field-error" ng-show="growth.lbs.$error.min">
                  mininum number is 10.</span>
                     <span class="text-field-error" ng-show="growth.lbs.$error.max">
                  maxinum number is 100.</span>
-                </div>
-                </md-input-container>
-            </div>
-                <div flex offset = '10'>
-            <div>
-                <md-input-container>
-                    <lx-text-field label="Weight(ounces)">
-                        <input type="number" ng-model="child.weight.ounces" ng-min = "1" ng-max = "16" required name = "ounces">
-                    </lx-text-field>
-                    <div role="alert">
+                                </div>
+                            </md-input-container>
+                        </div>
+                        <div flex offset='10'>
+                            <div>
+                                <md-input-container>
+                                    <lx-text-field label="Weight(ounces)">
+                                        <input type="number" ng-model="child.weight.ounces" ng-min="1" ng-max="16"
+                                               required name="ounces">
+                                    </lx-text-field>
+                                    <div role="alert">
                 <span class="text-field-error" ng-show="growth.ounces.$touched && growth.ounces.$error.required">
                  *Required!</span>
                 <span class="text-field-error" ng-show="growth.ounces.$error.min">
                  mininum number is 1.</span>
                     <span class="text-field-error" ng-show="growth.ounces.$error.max">
                  maxinum number is 16.</span>
+                                    </div>
+                                </md-input-container>
+                            </div>
+                        </div>
                     </div>
-                    </md-input-container>
-                </div>
-            </div>
-        </div>
-        <div >
-            <div flex-item>
-                <md-input-container>
-                <lx-text-field label="Length(inches)">
-                    <input type="text" ng-model="child.length.inches" ng-min = "5" ng-max = "100" required name = "inches">
-                </lx-text-field>
-                    <div role="alert">
+                    <div>
+                        <div flex-item>
+                            <md-input-container>
+                                <lx-text-field label="Length(inches)">
+                                    <input type="text" ng-model="child.length.inches" ng-min="5" ng-max="100" required
+                                           name="inches">
+                                </lx-text-field>
+                                <div role="alert">
                 <span class="text-field-error" ng-show="growth.inches.$touched && growth.inches.$error.required">
                  *Required!</span>
                 <span class="text-field-error" ng-show="growth.inches.$error.min">
                  mininum number is 5.</span>
                     <span class="text-field-error" ng-show="growth.inches.$error.max">
                  maxinum number is 100.</span>
+                                </div>
+                            </md-input-container>
+                        </div>
                     </div>
-                    </md-input-container>
-            </div>
-        </div>
-        <div>
-            <div flex-item>
-                <md-input-container>
-                <lx-text-field label="Hair Circumference(inches)">
-                    <input type="text" ng-model="child.hairCircumference.inches" ng-min = "5" ng-max = "150" required name = "incheshc">
-                </lx-text-field>
-                <div role="alert">
+                    <div>
+                        <div flex-item>
+                            <md-input-container>
+                                <lx-text-field label="Hair Circumference(inches)">
+                                    <input type="text" ng-model="child.hairCircumference.inches" ng-min="5" ng-max="150"
+                                           required name="incheshc">
+                                </lx-text-field>
+                                <div role="alert">
                 <span class="text-field-error" ng-show="growth.incheshc.$touched && growth.incheshc.$error.required">
                  *Required!</span>
                 <span class="text-field-error" ng-show="growth.incheshc.$error.min">
                  mininum number is 5.</span>
                     <span class="text-field-error" ng-show="growth.incheshc.$error.max">
                  maxinum number is 150.</span>
+                                </div>
+                            </md-input-container>
+                        </div>
+                    </div>
                 </div>
-                </md-input-container>
-            </div>
-        </div>
-        </div>
-        <div flex offset = '10' ng-hide = "child.unit == 'us'">
-                <div flex-item>
-                    <md-input-container>
-                    <lx-text-field label="Weight(kg)">
-                        <input type="text" ng-model="child.weight.kg" ng-min = "1" ng-max = "40" required name = "kg">
-                    </lx-text-field>
-                        <div role="alert">
+                <div flex offset='10' ng-hide="child.unit == 'us'">
+                    <div flex-item>
+                        <md-input-container>
+                            <lx-text-field label="Weight(kg)">
+                                <input type="text" ng-model="child.weight.kg" ng-min="1" ng-max="40" required name="kg">
+                            </lx-text-field>
+                            <div role="alert">
                 <span class="text-field-error" ng-show="growth.kg.$touched && growth.kg.$error.required">
                  *Required!</span>
                 <span class="text-field-error" ng-show="growth.kg.$error.min">
                  mininum number is 1.</span>
                     <span class="text-field-error" ng-show="growth.kg.$error.max">
                  maxinum number is 40.</span>
-                        </div>
+                            </div>
                         </md-input-container>
-                </div>
+                    </div>
 
-            <div>
-                <div flex-item>
-                    <md-input-container>
-                    <lx-text-field label="Length(cm)">
-                        <input type="text" ng-model="child.length.cm" ng-min = "5" ng-max = "1000" required name = "cm">
-                    </lx-text-field>
-                        <div role="alert">
+                    <div>
+                        <div flex-item>
+                            <md-input-container>
+                                <lx-text-field label="Length(cm)">
+                                    <input type="text" ng-model="child.length.cm" ng-min="5" ng-max="1000" required
+                                           name="cm">
+                                </lx-text-field>
+                                <div role="alert">
                 <span class="text-field-error" ng-show="growth.cm.$touched && growth.cm.$error.required">
                  *Required!</span>
                 <span class="text-field-error" ng-show="growth.cm.$error.min">
                  mininum number is 5.</span>
                     <span class="text-field-error" ng-show="growth.cm.$error.max">
                  maxinum number is 1000.</span>
+                                </div>
+                            </md-input-container>
                         </div>
-                        </md-input-container>
-                </div>
-            </div>
-            <div>
-                <div flex-item>
-                    <md-input-container>
-                    <lx-text-field label="Hair Circumference(cm)">
-                        <input type="text" ng-model="child.hairCircumference.cm" ng-min = "10" ng-max = "200" required name = "cmhc">
-                    </lx-text-field>
-                    <div role="alert">
+                    </div>
+                    <div>
+                        <div flex-item>
+                            <md-input-container>
+                                <lx-text-field label="Hair Circumference(cm)">
+                                    <input type="text" ng-model="child.hairCircumference.cm" ng-min="10" ng-max="200"
+                                           required name="cmhc">
+                                </lx-text-field>
+                                <div role="alert">
                 <span class="text-field-error" ng-show="growth.cmhc.$touched && growth.cmhc.$error.required">
                  *Required!</span>
                 <span class="text-field-error" ng-show="growth.cmhc.$error.min">
                  mininum number is 10.</span>
                     <span class="text-field-error" ng-show="growth.cmhc.$error.max">
                  maxinum number is 200.</span>
+                                </div>
+                            </md-input-container>
+                        </div>
                     </div>
-                    </md-input-container>
+                </div>
+                <div flex offset='10'>
+                    <md-button class="md-raised md-primary"  ng-click = " getChart(growth.name.valid && growth.date.valid &&
+        ((growth.lbs.$valid && growth.inches.$valid && growth.incheshc.$valid) ||
+         (growth.kg.$valid && growth.cm.$valid && growth.cmhc.$valid)))">Get Chart</md-button>
+
+                </div>
+                <div role="alert">
+                <span class="text-field-error" ng-show="chartInvalid">
+                 Invalid information in the form, please correct it and get chart again.</span>
                 </div>
             </div>
-        </div>
-        <div flex offset = '10'>
-        <input type = 'submit' class="btn btn--m btn--blue btn--raised" lx-ripple value = "Get Chart" />
-
-
-        </div>
-</div>
-    </form>
+        </form>
     </div>
-    <div id = 'charts'>
+    <div id='charts'>
         <div ui-view></div>
     </div>
-    </div>
+</div>

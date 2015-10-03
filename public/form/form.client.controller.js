@@ -3,7 +3,6 @@
  */
 form.controller('formController',
     function($scope,$http,$stateParams,$rootScope,$state,$mdDialog,$cookies,chartAPI){
-
         $scope.child = {};
         $scope.child.weight = {};
         $scope.child.length = {};
@@ -16,9 +15,10 @@ form.controller('formController',
     }
         $scope.child.gender = 'Girl';
         $scope.overAge = false;
-
+        $scope.untouched = true;
             $rootScope.$watch(function() { return $scope.datepicker.date; }, function (newValue, oldValue) {
                     if ( typeof oldValue !== 'undefined' || oldValue !== newValue) {
+                        $scope.untouched = false;
                         var birth = moment($scope.datepicker.date.toString()).fromNow(true);
                         var age = birth.split(" ");
                         if (age[1] == 'months') {
@@ -35,36 +35,35 @@ form.controller('formController',
                         }
                 }
     });
-
         $scope.toggle = function(){
             $scope.child.weight = {};
             $scope.child.length = {};
             $scope.child.hairCircumference = {};
         }
-    $scope.getChart = function(){
-        $cookies.put('unit',$scope.child.unit);
-        var birth = moment($scope.datepicker.date.toString()).fromNow(true);
-        $scope.child.birth = birth;
-        $rootScope.child = $scope.child;
-        $mdDialog.show({
-            templateUrl: './dialog/dialog.client.view.html',
-            controller : 'dialogController',
-            locals : {
-                loading : true,
-                child : $scope.child,
-                title : 'GrowthChart',
-                content : 'Loading Chart',
-                url : 'home.detail'
-            }
-        });
+
+        $scope.chartInvalid = false;
+    $scope.getChart = function($valid){
+        $scope.chartInvalid = false;
+        console.log($valid);
+        if($valid) {
+            $cookies.put('unit', $scope.child.unit);
+            var birth = moment($scope.datepicker.date.toString()).fromNow(true);
+            $scope.child.birth = birth;
+            $rootScope.child = $scope.child;
+            $mdDialog.show({
+                templateUrl: './dialog/dialog.client.view.html',
+                controller: 'dialogController',
+                locals: {
+                    loading: true,
+                    child: $scope.child,
+                    title: 'GrowthChart',
+                    content: 'Loading Chart',
+                    url: 'home.detail'
+                }
+            });
+        }else{
+            $scope.chartInvalid = true;
+        }
     };
 
-
-    $scope.validation = {
-        gender : function(){
-            if($scope.child.gender == null){
-                return false;
-            }
-        }
-    }
 });
