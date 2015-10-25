@@ -13,8 +13,6 @@ module.exports = function(){
     app.use(bodyParser.urlencoded({extended : true}));
 
     app.use(bodyParser.json());
-
-    console.log("cookie");
     app.use(cookie());
 
 

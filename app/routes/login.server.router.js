@@ -3,21 +3,24 @@
  */
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-
+var session = require('express-session');
 var connection = require('../../config/mysql');
 var mysql = require('mysql');
 module.exports = function(app){
 
     passport.use(new LocalStrategy(
         function(username, password, done) {
+            console.log("localstratege");
             connection.query("select * from p_users where email = '"+username+"'",function(err,user){
                 if(err){
                     return done(err);
                 }
                 if(user.length == 0){
+                    console.log("no user");
                     return done(null,false,{message:"Invalid Username or Password"});
                 }
                 if(user[0].password != password){
+                    console.log("no password");
                     return done(null,false, {message : "Invalid Username or Password"});
                 }
                 return done(null,user);
@@ -41,9 +44,7 @@ module.exports = function(app){
     });
 
     passport.deserializeUser(function(id, done) {
-        db.users.findById(id, function(err, user) {
-            done(err, user);
-        });
+        done(null, id);
     });
 
     app.use(passport.initialize());
@@ -53,14 +54,12 @@ module.exports = function(app){
     app.post('/login',loginPost);
 
     app.get('/login',function(req,res){
-        res.render('invalid');
-    });
-    app.get('/invalid',function(req,res) {
-        console.log("invalid");
-    });
-    app.get('/login',function(req,res){
         res.redirect('/invalid');
     });
+    app.get('/invalid',function(req,res) {
+        res.render('invalid');
+    });
+
 
 
 
@@ -74,23 +73,24 @@ module.exports = function(app){
 };
     function loginPost(req,res,next){
     passport.authenticate('local', function(err, user, info) {
+        console.log(info);
         if (err) {
             // if error happens
             return next(err);
         }
         if (!user) {
-            req.session.messages = info.message;
+           // req.session.messages = "user undefined";
             return res.redirect('/login');
         }
         req.logIn(user, function(err) {
             if (err) {
-                req.session.messages = "Error";
+              //  req.session.messages = "Error";
                 return next(err);
             }
             console.log(user);
             res.cookie('username', user[0].email, { maxAge: 900000 });
             res.cookie('id', user[0].id, { maxAge: 900000 });
-            req.session.messages = "Login successfully";
+            //req.session.messages = "Login successfully";
             return res.redirect('/');
         });
     })(req, res, next);
